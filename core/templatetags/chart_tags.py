@@ -11,11 +11,13 @@ register = template.Library()
 # You are free to arrange them in grids or other elements
 
 
-@register.inclusion_tag('blocks/approach_card.html')
-def approach_card(*args, **kwargs):
-    card_header = kwargs['card_header']
-    card_body = kwargs['card_body']
+@register.inclusion_tag('blocks/chart_area.html')
+def chart_area(*args, **kwargs):
+    chart_name = kwargs['chart_name']
+    chart_menu = kwargs['chart_menu']
+    chart = kwargs['chart']
 
-    return {'card_header':card_header,
-            'card_body':card_body,
+    return {'chart_name':chart_name,
+            'chart_menu':chart_menu,
+            'chart':chart,
            }
