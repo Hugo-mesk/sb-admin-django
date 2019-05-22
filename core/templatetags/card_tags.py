@@ -24,7 +24,7 @@ def approach_card(*args, **kwargs):
 @register.inclusion_tag('blocks/illustration_card.html')
 def illustration_card(*args, **kwargs):
     card_header = kwargs['card_header']
-    # need the url not the object image
+    # need the url not the image object
     image_url = kwargs['image_url']
     card_body = kwargs['card_body']
 
@@ -45,4 +45,21 @@ def project_status_card(*args, **kwargs):
 
     return {'projects_type':projects_type,
             'projects':projects,
+           }
+
+
+@register.inclusion_tag('blocks/small_card.html')
+def small_card(*args, **kwargs):
+    # Will be the left side shadow color
+    card_color = kwargs['card_color']
+    card_title = kwargs['card_title']
+    card_value = kwargs['card_value']
+    # Fonte Awesome icons for the card
+    # Tested fa-calendar fa-dollar-sign fa-clipboard-list fa-comments
+    card_faicon = kwargs['card_faicon']
+
+    return {'card_color':card_color,
+            'card_title':card_title,
+            'card_value':card_value,
+            'card_faicon':card_faicon,
            }
