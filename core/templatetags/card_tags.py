@@ -11,7 +11,7 @@ register = template.Library()
 # You are free to arrange them in grids or other elements
 
 
-@register.inclusion_tag('blocks/approach_card.html')
+@register.inclusion_tag('cards/approach_card.html')
 def approach_card(*args, **kwargs):
     card_header = kwargs['card_header']
     card_body = kwargs['card_body']
@@ -21,7 +21,7 @@ def approach_card(*args, **kwargs):
            }
 
 
-@register.inclusion_tag('blocks/illustration_card.html')
+@register.inclusion_tag('cards/illustration_card.html')
 def illustration_card(*args, **kwargs):
     card_header = kwargs['card_header']
     # need the url not the image object
@@ -34,7 +34,7 @@ def illustration_card(*args, **kwargs):
            }
 
 
-@register.inclusion_tag('blocks/project_status_card.html')
+@register.inclusion_tag('cards/project_status_card.html')
 def project_status_card(*args, **kwargs):
     # project type could be placed in below dictionary but explicit is better
     projects_type = kwargs['projects_type']
@@ -48,7 +48,7 @@ def project_status_card(*args, **kwargs):
            }
 
 
-@register.inclusion_tag('blocks/small_card.html')
+@register.inclusion_tag('cards/small_card.html')
 def small_card(*args, **kwargs):
     # Will be the left side shadow color
     card_color = kwargs['card_color']

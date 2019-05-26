@@ -4,6 +4,7 @@
     <!-- Card Header - Dropdown -->
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
       <h6 class="m-0 font-weight-bold text-primary">{{ chart_name }}</h6>
+      {% if has_menu is True %}
       <div class="dropdown no-arrow">
         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -19,6 +20,7 @@
           {% endfor %}
         </div>
       </div>
+      {% endif %}
     </div>
     <!-- Card Body -->
     <!-- Consider use Plotly or Dash or Bokeh to generate the charts -->

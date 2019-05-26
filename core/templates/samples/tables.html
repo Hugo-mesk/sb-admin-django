@@ -19,14 +19,12 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      {% for t_head in table_heads %}
+                        <th>{{ t_head }}</th>
+                      {% endfor %}
                     </tr>
                   </thead>
+                  {% if has_foot is true %}
                   <tfoot>
                     <tr>
                       <th>Name</th>

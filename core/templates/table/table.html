@@ -1,0 +1,37 @@
+<!-- The foloowing css and js are need to table proper functionality: datatables.css datatables.js -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            {% for t_head in table_heads %}
+              <th>{{ t_head }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <!-- Foot defaults to replicate the head in bottom if the has foot is True -->
+        <!-- provided a variable just in case is need to -->
+        {% if has_foot is True %}
+        <tfoot>
+          <tr>
+            {% for t_foot in table_foot %}
+              <th>{{ t_foot }}</th>
+            {% endfor %}
+          </tr>
+        </tfoot>
+        <tbody>
+          {% for body_row in table_data %}
+          <tr>
+            {% for cell_data in body_row %}
+              <td>{{ cell_data }}</td>
+            {% endfor %}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
