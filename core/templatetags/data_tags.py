@@ -25,8 +25,10 @@ def chart_area(*args, **kwargs):
 
 # This tag works in conjuction with table css and table js
 
-@register.inclusion_tag('table/table.html')
-def table_area(*args, **kwargs):
+@register.inclusion_tag('table/table.html', takes_context=True)
+def table_area(context, *args, **kwargs):
+    if context.__contains__('table_css'):
+        if context['table_css'] is True:
     table_heads = kwargs['table_heads']
     table_data = kwargs['table_data']
     if kwargs.__contains__('has_foot'):
@@ -46,6 +48,7 @@ def table_area(*args, **kwargs):
             'has_foot':has_foot,
             'table_foot':table_foot,
            }
+
 
 @register.inclusion_tag('table/table_css.html')
 def table_css(*args, **kwargs):
