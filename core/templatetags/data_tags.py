@@ -29,8 +29,8 @@ def chart_area(*args, **kwargs):
 def table_area(context, *args, **kwargs):
     if context.__contains__('table_css'):
         if context['table_css'] is True:
-    table_heads = kwargs['table_heads']
-    table_data = kwargs['table_data']
+            table_heads = kwargs['table_heads']
+            table_data = kwargs['table_data']
     if kwargs.__contains__('has_foot'):
         has_foot = kwargs['has_foot']
     else:
