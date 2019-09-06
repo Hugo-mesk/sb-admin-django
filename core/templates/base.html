@@ -1,4 +1,4 @@
-{% load static staticfiles i18n  %}
+{% load static staticfiles i18n sidebar_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +30,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    {% include "includes/sidebar.html" %}
+    {% sidebar site_name="DJANGO SB_ADMIN" site_version=1 %}
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->

@@ -1,5 +1,4 @@
 from django import template
-from .models import Page, SidebarPlace
 register = template.Library()
 
 # Django incluison tag plays elegant way to separete bootstrap template logic
@@ -11,15 +10,14 @@ register = template.Library()
 # You are free to arrange them in grids or other elements
 
 
-@register.inclusion_tag('sidebar.html')
+@register.inclusion_tag('includes/sidebar.html')
 def sidebar(*args, **kwargs):
     # Site name and version in kwargs as you may supply them
     # or get from a site app
     site_name = kwargs['site_name']
     site_version = kwargs['site_version']
-    pages = Page.objects.all()
 
     return {'site_name':site_name,
             'site_version':site_version,
-            'pages':pages,
+            #'pages':pages,
            }
