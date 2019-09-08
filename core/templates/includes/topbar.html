@@ -1,3 +1,5 @@
+{% load i18n user_tag %}
+
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -50,7 +52,10 @@
     <div class="topbar-divider d-none d-sm-block"></div>
 
     <!-- Nav Item - User Information -->
-    {% include "includes/user_info.html" %}
+    {% set_link link="perfil" url="perfil_url" icon="fa-user" as perfil %}
+    {% set_link link="configure" url="configure_url" icon="fa-cogs" as config %}
+    {% set_link link="Activity Log" url="activity_log_url" icon="fa-list" as activity %}
+    {% user_dropdown perfil config activity %}
 
   </ul>
 
