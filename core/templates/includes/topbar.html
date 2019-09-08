@@ -1,4 +1,4 @@
-{% load i18n static messages_tag user_tag %}
+{% load i18n static alerts_tag messages_tag user_tag %}
 
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -44,7 +44,10 @@
     </li>
 
     <!-- Nav Item - Alerts -->
-    {% include "includes/alerts.html" %}
+    {% set_alert number="1" bg="bg-primary" was_read=False date="December 12, 2019" short_text="A new monthly report is ready to download!" fa_icon="fa-file-alt" as alert_1 %}
+    {% set_alert number="2" bg="bg-success" was_read=True date="December 7, 2019" short_text="$290.29 has been deposited into your account!" fa_icon="fa-donate" as alert_2 %}
+    {% set_alert number="3" bg="bg-warning" was_read=True date="December 2, 2019" short_text="Spending Alert: We've noticed unusually high spending for your account." fa_icon="fa-exclamation-triangle" as alert_3 %}
+    {% alerts_dropdown alert_1 alert_2 alert_3 %}
 
     <!-- Nav Item - Messages -->
     {% set_message sender="Emily Fowler" bg="bg-success" was_read=False time_lapse="58m" short_text="Hi there! I am wondering if you can help me with a problem I've been having." sender_img="/img/emily.jpeg" as emily_msg %}
