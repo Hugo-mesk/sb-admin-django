@@ -10,29 +10,34 @@ register = template.Library()
 # Please note that all templates are contained in cards
 # You are free to arrange them in grids or other elements
 
-@register.inclusion_tag('includes/user_info.html')
-def user_dropdown(*args, **kwargs):
+@register.inclusion_tag('includes/messages.html')
+def message_dropdown(*args, **kwargs):
     # The pop method of dictionary search, return and remove the key values
     # and also accepts a default value if key is not found
-    user_img = kwargs.pop("user_img",static("/img/user_default.jpeg"))
     # This is only for test
-    user_links = {}
+    messages = {}
     print(args)
-    for link in args:
-        user_links.update(link)
+    for message in args:
+        messages.update(message)
 
-    return {"user_links":user_links,
-            "user_img":user_img,}
+    return {"messages":messages,}
 
 
 @register.simple_tag()
-def set_link(*args, **kwargs):
+def set_message(*args, **kwargs):
     # Set link receiver link name, url and fa icon from below options
     # fa-user, fa-list, fa-cogs
 
-    link = {}
-    name =  kwargs['link']
-    link['url'] = kwargs['url']
-    link['icon'] = kwargs['icon']
+    message = {}
+    name =  kwargs['sender']
+    message['sender'] = kwargs['sender']
+    message['bg'] = kwargs['bg']
+    message['was_read'] =  kwargs['was_read']
+    message['time_lapse'] = kwargs['time_lapse']
+    message['short_text'] = kwargs['short_text']
+    if kwargs.__contains__('sender_img'):
+        message['sender_img'] =static(kwargs['sender_img'])
+    else:
+        message['sender_img'] = static("/img/no_img.jpeg")
 
-    return {name:link}
+    return {name:message}

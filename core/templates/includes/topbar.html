@@ -1,4 +1,4 @@
-{% load i18n user_tag %}
+{% load i18n static messages_tag user_tag %}
 
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -47,7 +47,11 @@
     {% include "includes/alerts.html" %}
 
     <!-- Nav Item - Messages -->
-    {% include "includes/messages.html" %}
+    {% set_message sender="Emily Fowler" bg="bg-success" was_read=False time_lapse="58m" short_text="Hi there! I am wondering if you can help me with a problem I've been having." sender_img="/img/emily.jpeg" as emily_msg %}
+    {% set_message sender="Jae Chun" bg="" was_read=True time_lapse="1d" short_text="I have the photos that you ordered last month, how would you like them sent to you?" sender_img="/img/no_img.jpeg" as joe_msg %}
+    {% set_message sender="Morgan Alvarez" bg="bg-warning" was_read=False time_lapse="2d" short_text="Last month's report looks great, I am very happy with the progress so far, keep up the good work!" sender_img="/img/morgan.jpeg" as morgan_msg %}
+    {% set_message sender="Chicken the Dog" bg="bg-success" was_read=True time_lapse="2w" short_text="Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good..." sender_img="/img/pug.jpeg" as pug_msg %}
+    {% message_dropdown emily_msg joe_msg morgan_msg pug_msg %}
 
     <div class="topbar-divider d-none d-sm-block"></div>
 

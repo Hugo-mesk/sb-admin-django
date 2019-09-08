@@ -1,3 +1,5 @@
+
+{% if user.is_authenticated %}
 <li class="nav-item dropdown no-arrow">
   <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.get_username }}</span>
@@ -17,10 +19,12 @@
       Logout
     </a>
   </div>
-</li>
-
-<!-- {% if user.is_authenticated %}
 
 {% else %}
-    <p>Please log in.</p>
-{% endif %} -->
+<li class="nav-item no-arrow">
+  <a class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+    Log In <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"> </i>
+  </a>
+
+</li>
+{% endif %}
