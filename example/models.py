@@ -1,12 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-GROUP = ()
 
-# Create your models here.
-class Button(models.Model):
-
-    caption = models.CharField(max_length=20, blank=True)
+class ButtonGroup(models.Model):
     # As django docs sugest define CHIOCES by suitably-named constant
     CIRCLE_BUTTONS = "CB"
     FACEBOOK_BUTTONS = "FB"
@@ -14,8 +10,8 @@ class Button(models.Model):
     SPLIT_BT_ICON = "SBI"
     BUTTON_GROUP_CHOICES = [
         (CIRCLE_BUTTONS, _('Circle Buttons')),
-        (FACEBOOK_BUTTONS, _('Facebook Buttons')),
-        (GOOGLE_BUTTONS, _('Google Buttons')),
+        (FACEBOOK_BUTTONS, _('Facebook Button')),
+        (GOOGLE_BUTTONS, _('Google Button')),
         (SPLIT_BT_ICON, _('Split Buttons if Icon')),
     ]
     group = models.CharField(
@@ -23,6 +19,13 @@ class Button(models.Model):
         choices=BUTTON_GROUP_CHOICES,
         default=CIRCLE_BUTTONS,
     )
+
+    def __str__(self):
+        return self.get_group_display()
+
+
+class ButtonSubGroup(models.Model):
+
     DEFAULT_BUTTON = "DB"
     SMALL_BUTTON = "SB"
     LARGE_BUTTON = "LG"
@@ -36,6 +39,28 @@ class Button(models.Model):
         choices=BUTTON_SUBGROUP_CHOICES,
         default=DEFAULT_BUTTON,
     )
+    group = models.ForeignKey(ButtonGroup,
+                              on_delete=models.CASCADE,
+                              related_name='sub_groups')
+
+    def __str__(self):
+        return self.get_sub_group_display()
+
+
+# Create your models here.
+class Button(models.Model):
+
+    caption = models.CharField(max_length=20, blank=True)
+    # Button normaly some operation by POST in some href="url"
+    # Just for illustration it will be set in database
+    # you should use get_absolute_url in your model
+    url = models.CharField(max_length=120, blank=True)
+
+    # As django docs sugest define CHIOCES by suitably-named constant
+    sub_group = models.ForeignKey(ButtonSubGroup,
+                              on_delete=models.CASCADE,
+                              related_name='buttons')
+
     PRIMARY_BUTTON = "btn-primary"
     SECONDARY_BUTTON = "btn-secondary"
     SUCCESS_BUTTON = "btn-success"
@@ -61,39 +86,38 @@ class Button(models.Model):
     @property
     def bootstrap_form(self):
         if self.group == CIRCLE_BUTTONS:
-            return bootstrap_form = "btn-circle"
-        elif self.group == FACEBOOK_BUTTONS
-            return bootstrap_form = "btn-facebook btn-block"
+            return "btn-circle"
+        elif self.group == FACEBOOK_BUTTONS:
+            return "btn-facebook btn-block"
         elif self.group == GOOGLE_BUTTONS:
-            return bootstrap_form = "btn-google btn-block"
-
+            return "btn-google btn-block"
         elif self.group == SPLIT_BT_ICON:
-            return bootstrap_form = "btn-icon-split"
+            return "btn-icon-split"
 
     @property
     def bootstrap_size():
         if self.sub_group == DEFAULT_BUTTON:
-            return bootstrap_form = ""
+            return ""
         elif self.sub_group == SMALL_BUTTON:
-            return bootstrap_form = "btn-sm"
+            return " btn-sm"
         elif self.sub_group == LARGE_BUTTON:
-            return bootstrap_form = "btn-lg"
+            return " btn-lg"
 
     @property
     def fa_icon():
         if self.group == FACEBOOK_BUTTONS:
-            return fa_icon = "fab fa-facebook-f fa-fw"
+            return f"fab fa-facebook-f fa-fw"
         elif self.group == GOOGLE_BUTTONS:
-            return fa_icon = "fab fa-google fa-fw"
+            return "fab fa-google fa-fw"
         elif self.bootstrap_color == PRIMARY_BUTTON:
-            return fa_icon = "fas fa-flag"
+            return "fas fa-flag"
         elif self.bootstrap_color == SECONDARY_BUTTON:
-            return fa_icon = "fas fa-arrow-right"
+            return "fas fa-arrow-right"
         elif self.bootstrap_color == SUCCESS_BUTTON:
-            return fa_icon = "fas fa-check"
+            return "fas fa-check"
         elif self.bootstrap_color == INFO_BUTTON:
-            return fa_icon = "fas fa-info-circle"
+            return "fas fa-info-circle"
         elif self.bootstrap_color == WARNING_BUTTON:
-            return fa_icon = "fas fa-exclamation-triangle"
+            return "fas fa-exclamation-triangle"
         elif self.bootstrap_color == DANGER_BUTTON:
-            return fa_icon = "fas fa-trash"
+            return "fas fa-trash"

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load i18n card_tags general_tags button_tag  %}
+
+{% block content %}
+<!-- Main Content -->
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Buttons</h1>
+
+    <div class="row">
+    {% for group in button_groups %}
+      <div class="col-lg-6">
+        {% merge_html "" as sub_groups_html %}
+
+        {% for sub_group in button_sub_groups %}
+          {% if sub_group.group == group %}
+            {% merge_html "" as buttons_html %}
+
+            {% for button in buttons %}
+              {% if button.sub_group == sub_group %}
+                {% show_button btn=button as button_html %}
+                {% merge_html buttons_html button_html as buttons_html %}
+              {% endif %}
+            {% endfor %}
+
+          {% endif %}
+          {% button_subgroup description=sub_group.get_sub_group_display buttons=buttons_html as sub_group_html %}
+          {% merge_html sub_groups_html sub_group_html as sub_groups_html %}
+        {% endfor %}
+
+        {% approach_card card_header="{{ group.get_group_display }}" card_body="{{ }}" %}
+      </div>
+    {% if forloop.counter|divisibleby:2 %}
+      </div>
+      <div class="row">
+    {% endif %}
+    {% endfor %}
+
+    </div>
+
+  </div>
+{% endblock content %}
