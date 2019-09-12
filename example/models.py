@@ -1,19 +1,44 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+CIRCLE_BUTTONS = "CB"
+FACEBOOK_BUTTONS = "FB"
+GOOGLE_BUTTONS = "GB"
+SPLIT_BT_ICON = "SBI"
+BUTTON_GROUP_CHOICES = [
+    (CIRCLE_BUTTONS, _('Circle Buttons')),
+    (FACEBOOK_BUTTONS, _('Facebook Button')),
+    (GOOGLE_BUTTONS, _('Google Button')),
+    (SPLIT_BT_ICON, _('Split Buttons if Icon')),
+]
+DEFAULT_BUTTON = "DB"
+SMALL_BUTTON = "SB"
+LARGE_BUTTON = "LG"
+BUTTON_SUBGROUP_CHOICES = [
+    (DEFAULT_BUTTON, _("Default Buttons")),
+    (SMALL_BUTTON, _("Small Buttons")),
+    (LARGE_BUTTON, _("Large Buttons")),
+]
+PRIMARY_BUTTON = "btn-primary"
+SECONDARY_BUTTON = "btn-secondary"
+SUCCESS_BUTTON = "btn-success"
+INFO_BUTTON = "btn-info"
+WARNING_BUTTON = "btn-warning"
+DANGER_BUTTON = "btn-danger"
+LIGHT_BUTTON = "btn-light"
+BUTTON_FORM_CHOICES = [
+    (PRIMARY_BUTTON, _("Primary Button")),
+    (SECONDARY_BUTTON, _("Secondary Button")),
+    (SUCCESS_BUTTON, _("Success Button")),
+    (INFO_BUTTON, _("Info Button")),
+    (WARNING_BUTTON, _("Warning Button")),
+    (DANGER_BUTTON, _("Danger Button")),
+    (LIGHT_BUTTON, _("Light Button")),
+]
 
 class ButtonGroup(models.Model):
     # As django docs sugest define CHIOCES by suitably-named constant
-    CIRCLE_BUTTONS = "CB"
-    FACEBOOK_BUTTONS = "FB"
-    GOOGLE_BUTTONS = "GB"
-    SPLIT_BT_ICON = "SBI"
-    BUTTON_GROUP_CHOICES = [
-        (CIRCLE_BUTTONS, _('Circle Buttons')),
-        (FACEBOOK_BUTTONS, _('Facebook Button')),
-        (GOOGLE_BUTTONS, _('Google Button')),
-        (SPLIT_BT_ICON, _('Split Buttons if Icon')),
-    ]
+
     group = models.CharField(
         max_length=3,
         choices=BUTTON_GROUP_CHOICES,
@@ -26,14 +51,6 @@ class ButtonGroup(models.Model):
 
 class ButtonSubGroup(models.Model):
 
-    DEFAULT_BUTTON = "DB"
-    SMALL_BUTTON = "SB"
-    LARGE_BUTTON = "LG"
-    BUTTON_SUBGROUP_CHOICES = [
-        (DEFAULT_BUTTON, _("Default Buttons")),
-        (SMALL_BUTTON, _("Small Buttons")),
-        (LARGE_BUTTON, _("Large Buttons")),
-    ]
     sub_group = models.CharField(
         max_length=3,
         choices=BUTTON_SUBGROUP_CHOICES,
@@ -61,22 +78,7 @@ class Button(models.Model):
                               on_delete=models.CASCADE,
                               related_name='buttons')
 
-    PRIMARY_BUTTON = "btn-primary"
-    SECONDARY_BUTTON = "btn-secondary"
-    SUCCESS_BUTTON = "btn-success"
-    INFO_BUTTON = "btn-info"
-    WARNING_BUTTON = "btn-warning"
-    DANGER_BUTTON = "btn-danger"
-    LIGHT_BUTTON = "btn-light"
-    BUTTON_FORM_CHOICES = [
-        (PRIMARY_BUTTON, _("Primary Button")),
-        (SECONDARY_BUTTON, _("Secondary Button")),
-        (SUCCESS_BUTTON, _("Success Button")),
-        (INFO_BUTTON, _("Info Button")),
-        (WARNING_BUTTON, _("Warning Button")),
-        (DANGER_BUTTON, _("Danger Button")),
-        (LIGHT_BUTTON, _("Light Button")),
-    ]
+
     bootstrap_color = models.CharField(
         max_length=15,
         choices=BUTTON_FORM_CHOICES,
@@ -85,29 +87,29 @@ class Button(models.Model):
 
     @property
     def bootstrap_form(self):
-        if self.group == CIRCLE_BUTTONS:
-            return "btn-circle"
-        elif self.group == FACEBOOK_BUTTONS:
-            return "btn-facebook btn-block"
-        elif self.group == GOOGLE_BUTTONS:
-            return "btn-google btn-block"
-        elif self.group == SPLIT_BT_ICON:
-            return "btn-icon-split"
+        if self.sub_group.group.group == CIRCLE_BUTTONS:
+            return " btn-circle"
+        elif self.sub_group.group.group == FACEBOOK_BUTTONS:
+            return " btn-facebook btn-block"
+        elif self.sub_group.group.group == GOOGLE_BUTTONS:
+            return " btn-google btn-block"
+        elif self.sub_group.group.group == SPLIT_BT_ICON:
+            return " btn-icon-split"
 
     @property
-    def bootstrap_size():
-        if self.sub_group == DEFAULT_BUTTON:
+    def bootstrap_size(self):
+        if self.sub_group.sub_group == DEFAULT_BUTTON:
             return ""
-        elif self.sub_group == SMALL_BUTTON:
+        elif self.sub_group.sub_group == SMALL_BUTTON:
             return " btn-sm"
-        elif self.sub_group == LARGE_BUTTON:
+        elif self.sub_group.sub_group == LARGE_BUTTON:
             return " btn-lg"
 
     @property
-    def fa_icon():
-        if self.group == FACEBOOK_BUTTONS:
+    def fa_icon(self):
+        if self.sub_group.group.group == FACEBOOK_BUTTONS:
             return f"fab fa-facebook-f fa-fw"
-        elif self.group == GOOGLE_BUTTONS:
+        elif self.sub_group.group.group == GOOGLE_BUTTONS:
             return "fab fa-google fa-fw"
         elif self.bootstrap_color == PRIMARY_BUTTON:
             return "fas fa-flag"

@@ -16,7 +16,6 @@ def message_dropdown(*args, **kwargs):
     # and also accepts a default value if key is not found
     # This is only for test
     messages = {}
-    print(args)
     for message in args:
         messages.update(message)
 
