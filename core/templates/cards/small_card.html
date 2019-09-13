@@ -1,27 +1,27 @@
-<div class="card border-left-{{ card_color }} shadow h-100 py-2">
+<div class="card border-left-{{ bootstrap_color }} shadow h-100 py-2">
   <div class="card-body">
     <div class="row no-gutters align-items-center">
       <div class="col mr-2">
-        <div class="text-xs font-weight-bold text-{{ color_class }} text-uppercase mb-1">{{ card_title }}</div>
-        {% if card_bar is True %}
+        <div class="text-xs font-weight-bold text-{{ bootstrap_color }} text-uppercase mb-1">{{ title }}</div>
+        {% if value|slice:"-1:" == "%" %}
           <div class="row no-gutters align-items-center">
             <div class="col-auto">
-              <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{ card_value }}%</div>
+              <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ value }}</div>
             </div>
             <div class="col">
               <div class="progress progress-sm mr-2">
-                <div class="progress-bar bg-info" role="progressbar" style="width:{{ card_value }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-{{ bootstrap_color }}" role="progressbar" style="width:{{ value }}" aria-valuenow="{{ value }}" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
           </div>
-        {% elseif card_bar is False %}
-          <div class="h5 mb-0 font-weight-bold text-gray-800">{{ card_value }}</div>
+        {% else %}
+          <div class="h5 mb-0 font-weight-bold text-gray-800">{{ value }}</div>
         {% endif %}
       </div>
       <div class="col-auto">
         <!-- Fonte Awesome icons for the card -->
         <!-- Tested fa-calendar fa-dollar-sign fa-clipboard-list fa-comments -->
-          <i class="fas {{ card_faicon }} fa-2x text-gray-300"></i>
+          <i class="fas {{ fa_icon }} fa-2x text-gray-300"></i>
       </div>
     </div>
   </div>

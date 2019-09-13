@@ -22,45 +22,19 @@ def approach_card_open(*args, **kwargs):
 def approach_card_close():
     return
 
-@register.inclusion_tag('cards/illustration_card.html')
-def illustration_card(*args, **kwargs):
-    card_header = kwargs['card_header']
-    # need the url not the image object
-    image_url = kwargs['image_url']
-    card_body = kwargs['card_body']
-
-    return {'card_header':card_header,
-            'image_url':image_url,
-            'card_body':card_body,
-           }
-
-
-@register.inclusion_tag('cards/project_status_card.html')
-def project_status_card(*args, **kwargs):
-    # project type could be placed in below dictionary but explicit is better
-    projects_type = kwargs['projects_type']
-    # projects need to be a dictionary of projects
-    # been each project a dictionary of project_name and status
-    # status a integer [0, 100] the % will be placed as needed, see template
-    projects = kwargs['projects']
-
-    return {'projects_type':projects_type,
-            'projects':projects,
-           }
-
 
 @register.inclusion_tag('cards/small_card.html')
 def small_card(*args, **kwargs):
     # Will be the left side shadow color
-    card_color = kwargs['card_color']
-    card_title = kwargs['card_title']
-    card_value = kwargs['card_value']
+    bootstrap_color = kwargs['bootstrap_color']
+    title = kwargs['title']
+    value = kwargs['value']
     # Fonte Awesome icons for the card
     # Tested fa-calendar fa-dollar-sign fa-clipboard-list fa-comments
-    card_faicon = kwargs['card_faicon']
+    fa_icon = kwargs['fa_icon']
 
-    return {'card_color':card_color,
-            'card_title':card_title,
-            'card_value':card_value,
-            'card_faicon':card_faicon,
+    return {'bootstrap_color':bootstrap_color,
+            'title':title,
+            'value':value,
+            'fa_icon':fa_icon,
            }
