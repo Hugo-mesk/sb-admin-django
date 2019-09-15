@@ -5,31 +5,76 @@
 
 {% block content %}
     <div class="row">
-    {% for group in button_groups %}
+      <!-- Circle Buttons -->
       <div class="col-lg-6">
-        {% approach_card_open card_header=group.get_group_display %}
-
-        {% for sub_group in button_sub_groups %}
-          {% if sub_group.group == group %}
+        {% approach_card_open card_header="Circle Buttons" %}
+            <p>
+              Use Font Awesome Icons (included with this theme package) along
+              with the circle buttons as shown in the examples below!
+            </p>
             <div class="mb-2">
-              {{ sub_group.get_sub_group_display }}
+              <code>.btn-circle</code>
             </div>
             {% for button in buttons %}
-              {% if button.sub_group == sub_group %}
-                {% show_button url=button.url bootstrap_color=button.bootstrap_color bootstrap_form=button.bootstrap_form bootstrap_size=button.bootstrap_size fa_icon=button.fa_icon caption=button.caption %}
+              {% if button.form.form == "CB" and button.size.size == "DB" %}
+                {% show_button href=button.href color=button.color.get_color form=button.form.get_form size=button.size.get_size fa_style=button.style.get_style fa_icon=button.icon caption=button.caption %}
               {% endif %}
             {% endfor %}
-
-          {% endif %}
-        {% endfor %}
-
+            <div class="mb-2">
+              <code>.btn-circle .btn-sm</code>
+            </div>
+            {% for button in buttons %}
+              {% if button.form.form == "CB" and button.size.size == "SB" %}
+                {% show_button href=button.href color=button.color.get_color form=button.form.get_form size=button.size.get_size fa_style=button.style.get_style fa_icon=button.icon caption=button.caption %}
+              {% endif %}
+            {% endfor %}
+            <div class="mb-2">
+              <code>.btn-circle .btn-lg</code>
+            </div>
+            {% for button in buttons %}
+              {% if button.form.form == "CB" and button.size.size == "LG" %}
+                {% show_button href=button.href color=button.color.get_color form=button.form.get_form size=button.size.get_size fa_style=button.style.get_style fa_icon=button.icon caption=button.caption %}
+              {% endif %}
+            {% endfor %}
+        {% approach_card_close %}
+      <!-- Brand Buttons -->
+        {% approach_card_open card_header="Brand Buttons" %}
+          <p>Google and Facebook buttons are available featuring each company's
+          respective brand color. They are used on the user login and
+          registration pages.</p>
+          <p>You can create more custom buttons by adding a new color
+          variable in the <code>_variables.scss</code> file and then using the
+          Bootstrap button variant mixin to create a new style, as demonstrated
+          in the <code>_buttons.scss</code> file.</p>
+          {% show_button href=button.href form="block" fa_style="fab" fa_icon="fa-google fa-fw" caption=".btn-google" cls_extra='btn-google' %}
+          {% show_button href=button.href form="block" fa_style="fab" fa_icon="fa-facebook-f fa-fw" caption=".btn-facebook" cls_extra='btn-facebook' %}
         {% approach_card_close %}
       </div>
-    {% if forloop.counter|divisibleby:2 %}
+    <!-- Split Buttons with Icon -->
+      <div class="col-lg-6">
+        {% approach_card_open card_header="Split Buttons with Icon" %}
+          <p>Works with any button colors, just use the
+            <code>.btn-icon-split</code>
+            class and the markup in the examples below. The examples below also
+            use the <code>.text-white-50</code> helper class on the icons for
+            additional styling, but it is not required.</p>
+            {% for button in buttons %}
+              {% if button.form.form == "SBI" and button.size.size == "DB" %}
+                {% show_button href=button.href color=button.color.get_color form=button.form.get_form size=button.size.get_size fa_style=button.style.get_style fa_icon=button.icon caption=button.caption %}
+              {% endif %}
+            {% endfor %}
+            <p>Also works with small and large button classes!</p>
+            {% for button in buttons %}
+              {% if button.form.form == "SBI" and button.size.size == "SB" %}
+                {% show_button href=button.href color=button.color.get_color form=button.form.get_form size=button.size.get_size fa_style=button.style.get_style fa_icon=button.icon caption=button.caption %}
+              {% endif %}
+            {% endfor %}
+            {% for button in buttons %}
+              {% if button.form.form == "SBI" and button.size.size == "LG" %}
+                {% show_button href=button.href color=button.color.get_color form=button.form.get_form size=button.size.get_size fa_style=button.style.get_style fa_icon=button.icon caption=button.caption %}
+              {% endif %}
+            {% endfor %}
+        {% approach_card_close %}
       </div>
-      <div class="row">
-    {% endif %}
-    {% endfor %}
-
     </div>
 {% endblock content %}

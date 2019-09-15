@@ -11,6 +11,7 @@ class Form(models.Model):
     SPLIT_WITH_ICON = "SBI"
     BRAND = "BB"
     FORM_CHOICES = [
+        (SIMPLE, _('Simple')),
         (CIRCLE, _('Circle')),
         (BRAND, _('Brand')),
         (SPLIT_WITH_ICON, _('Split if Icon')),
@@ -23,14 +24,14 @@ class Form(models.Model):
                             )
 
     @property
-    def bootstrap_form(self):
-        if self.form == SIMPLE:
+    def get_form(self):
+        if self.form == self.SIMPLE:
             return ""
-        elif self.form == CIRCLE:
+        elif self.form == self.CIRCLE:
             return "circle"
-        elif self.form == BRAND:
+        elif self.form == self.BRAND:
             return "block"
-        elif self.form == SPLIT_WITH_ICON:
+        elif self.form == self.SPLIT_WITH_ICON:
             return "icon-split"
 
     def __str__(self):
@@ -54,16 +55,16 @@ class Size(models.Model):
                             default=DEFAULT,
                             )
     @property
-    def bootstrap_size(self):
-        if self.sub_group.sub_group == DEFAULT:
+    def get_size(self):
+        if self.size == self.DEFAULT:
             return ""
-        elif self.sub_group.sub_group == SMALL:
+        elif self.size == self.SMALL:
             return "sm"
-        elif self.sub_group.sub_group == LARGE:
+        elif self.size == self.LARGE:
             return "lg"
 
     def __str__(self):
-        return self.get_sub_group_display()
+        return self.get_size_display()
 
 
 
@@ -85,58 +86,75 @@ class Color(models.Model):
         (ERROR, _("Error")),
         (LIGHT, _("Light")),
     ]
-    bootstrap_color = models.IntegerField(_('Color'),
-                                          choices=COLOR_CHOICES,
-                                          default=PRIMARY,
-                                          )
+    color = models.IntegerField(_('Color'),
+                                  choices=COLOR_CHOICES,
+                                  default=PRIMARY,
+                                  )
 
     @property
-    def bootstrap_color(self):
-        if self.color == PRIMARY:
-            return " btn-primary"
-        elif self.color == SECONDARY:
-            return " btn-secondary"
-        elif self.color == SUCCESS:
-            return " btn-success"
-        elif self.color == INFO:
-            return " btn-info"
-        elif self.color == WARNING:
-            return " btn-warning"
-        elif self.color == ERROR:
+    def get_color(self):
+        if self.color == self.PRIMARY:
+            return "primary"
+        elif self.color == self.SECONDARY:
+            return "secondary"
+        elif self.color == self.SUCCESS:
+            return "success"
+        elif self.color == self.INFO:
+            return "info"
+        elif self.color == self.WARNING:
+            return "warning"
+        elif self.color == self.ERROR:
             # Django forms has message tags and constant error and bootstrap use danger
-            return " btn-danger"
-        elif self.color == LIGHT:
-            return " btn-light"
+            return "danger"
+        elif self.color == self.LIGHT:
+            return "light"
 
+    def __str__(self):
+        return self.get_color_display()
 
-class FaIcon(models.Model):
+class FaStyle(models.Model):
     # Font Awesome version 5. Instead of fa as a style preceding every icon style, you need
     # to pick from fas for solid, far for regular, fal for light, or fab for brand
     SOLID = 1
     REGULAR = 2
     LIGHT = 3
     BRAND = 4
-    FAICON_CHOICES = [
-        (SOLID, _("Default")),
-        (REGULAR, _("Small")),
-        (LIGHT, _("Large")),
-        (BRAND, _("Large")),
+    FA_STYLE_CHOICES = [
+        (SOLID, _("Solid")),
+        (REGULAR, _("Regular")),
+        (LIGHT, _("Light")),
+        (BRAND, _("Brand")),
     ]
-    icon_style = models.IntegerField(_('Icon Style'),
-                                     choices=FAICON_CHOICES,
+    style = models.IntegerField(_('Icon Style'),
+                                     choices=FA_STYLE_CHOICES,
                                      default=REGULAR,
                                     )
 
     @property
-    def fa_icon(self):
-        if self.sub_group.group.group == SOLID:
+    def get_style(self):
+        if self.style== self.SOLID:
             return "fas"
-        elif self.sub_group.group.group == REGULAR:
+        elif self.style == self.REGULAR:
             return "far"
-        elif self.bootstrap_color == LIGHT:
+        elif self.style == self.LIGHT:
             return "fal"
-        elif self.bootstrap_color == BRAND:
+        elif self.style == self.BRAND:
             return "fab"
+
+    def __str__(self):
+        return self.get_style_display()
+
+
+class FaIcon(models.Model):
+    # Font Awesome version 5. Instead of fa as a style preceding every icon style, you need
+    # to pick from fas for solid, far for regular, fal for light, or fab for brand
+    style = models.CharField(_("Style"),
+                             max_length=120,
+                            )
+
+    def __str__(self):
+        return self.style
+
 
 
 # Create your models here.
@@ -158,6 +176,9 @@ class Button(models.Model):
     color = models.ForeignKey(Color,
                               on_delete=models.CASCADE,
                               related_name='buttons')
-    fa_icon = models.ForeignKey(FaIcon,
+    style = models.ForeignKey(FaStyle,
+                              on_delete=models.CASCADE,
+                              related_name='buttons')
+    icon = models.ForeignKey(FaIcon,
                               on_delete=models.CASCADE,
                               related_name='buttons')

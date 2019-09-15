@@ -1,9 +1,9 @@
-<a href="{{ url }}" class="btn {{ bootstrap_color }}{{ bootstrap_form }}{{ bootstrap_size }}">
-  {% if bootstrap_form == " btn-icon-split" %}<span class="icon text-white-50">{% endif %}
-    <i class="{{ fa_icon }}"></i>
-  {% if bootstrap_form == " btn-icon-split" %}</span>{% endif %}
-  {% if bootstrap_form == " btn-icon-split" %}<span class="text">{% endif %}
+<a href="{{ href }}" class="btn {{ btn_classes }}">
+  {% if has_span %}<span class="icon text-white-50">{% endif %}
+  {% if fa_icon and fa_style %} <i class="{{ fa_style }} {{ fa_icon }}"></i>{% endif %}
+  {% if has_span %}</span>{% endif %}
+  {% if caption %}<span class="text">{% endif %}
     {{ caption }}
-  {% if bootstrap_form == " btn-icon-split" %}</span>{% endif %}
+  {% if caption %}</span>{% endif %}
 </a>
-{% if bootstrap_form == " btn-icon-split" %}<div class="my-2"></div>{% endif %}
+{% if has_span %}<div class="my-2"></div>{% endif %}
