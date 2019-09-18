@@ -7,7 +7,7 @@
     <div class="row">
       <!-- Circle Buttons -->
       <div class="col-lg-6">
-        {% approach_card_open card_header="Circle Buttons" %}
+        {% basic_card_open card_header="Circle Buttons" %}
             <p>
               Use Font Awesome Icons (included with this theme package) along
               with the circle buttons as shown in the examples below!
@@ -36,9 +36,9 @@
                 {% show_button href=button.href color=button.color.get_color form=button.form.get_form size=button.size.get_size fa_style=button.style.get_style fa_icon=button.icon caption=button.caption %}
               {% endif %}
             {% endfor %}
-        {% approach_card_close %}
+        {% basic_card_close %}
       <!-- Brand Buttons -->
-        {% approach_card_open card_header="Brand Buttons" %}
+        {% basic_card_open card_header="Brand Buttons" %}
           <p>Google and Facebook buttons are available featuring each company's
           respective brand color. They are used on the user login and
           registration pages.</p>
@@ -48,11 +48,11 @@
           in the <code>_buttons.scss</code> file.</p>
           {% show_button href=button.href form="block" fa_style="fab" fa_icon="fa-google fa-fw" caption=".btn-google" cls_extra='btn-google' %}
           {% show_button href=button.href form="block" fa_style="fab" fa_icon="fa-facebook-f fa-fw" caption=".btn-facebook" cls_extra='btn-facebook' %}
-        {% approach_card_close %}
+        {% basic_card_close %}
       </div>
     <!-- Split Buttons with Icon -->
       <div class="col-lg-6">
-        {% approach_card_open card_header="Split Buttons with Icon" %}
+        {% basic_card_open card_header="Split Buttons with Icon" %}
           <p>Works with any button colors, just use the
             <code>.btn-icon-split</code>
             class and the markup in the examples below. The examples below also
@@ -74,7 +74,7 @@
                 {% show_button href=button.href color=button.color.get_color form=button.form.get_form size=button.size.get_size fa_style=button.style.get_style fa_icon=button.icon caption=button.caption %}
               {% endif %}
             {% endfor %}
-        {% approach_card_close %}
+        {% basic_card_close %}
       </div>
     </div>
 {% endblock content %}

@@ -11,15 +11,15 @@ register = template.Library()
 # You are free to arrange them in grids or other elements
 
 # I'm using the natural HTML concept of open and close tags just doing it with words
-@register.inclusion_tag('cards/approach_card_open.html')
-def approach_card_open(*args, **kwargs):
+@register.inclusion_tag('cards/basic_card_open.html')
+def basic_card_open(*args, **kwargs):
     card_header = kwargs['card_header']
 
     return {'card_header':card_header,
            }
 
-@register.inclusion_tag('cards/approach_card_close.html')
-def approach_card_close():
+@register.inclusion_tag('cards/basic_card_close.html')
+def basic_card_close():
     return
 
 
